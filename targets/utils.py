@@ -30,6 +30,7 @@ def make_form_url_from_plate(target_dict: dict, plate_string: str) -> str:
     form_id = target_dict["form_id"]
 
     query_params = {
+        target_fields["name"]: "melt",
         target_fields["plate"]: plate_string,
     }
 
