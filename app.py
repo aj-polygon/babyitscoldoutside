@@ -12,6 +12,8 @@ with plate_search:
 with desc_search:
     vehicle_search_string = st.text_input("Vehicle").upper()
 
+st.caption("Use the above fields to search.")
+
 melt_plates_df = compile_dataframe(st.secrets.sources)
 
 
@@ -50,7 +52,7 @@ if melt_plates_df.shape[0] > 0:
             st.dataframe(selected_df.transpose())
 
     else:
-        st.write("select record for more info...")
+        st.caption("select record for more info...")
 
 else:
     st.text("No matching records")
