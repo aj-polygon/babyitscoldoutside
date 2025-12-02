@@ -2,17 +2,26 @@ import pandas as pd
 from pprint import pprint
 
 
-def make_google_export_url(source_dict: dict) -> str:
+def make_export_url(source_dict: dict) -> str:
 
-    base_url = "https://docs.google.com/spreadsheets/d"
-    export_url = f"{base_url}/{source_dict['document_id']}/export?format={source_dict['format']}&gid={source_dict['sheet_id']}"
-
+    if source_dict["type"] == "googlesheet":
+        base_url = "https://docs.google.com/spreadsheets/d"
+        export_url = f"{base_url}/{source_dict['document_id']}/export?format={source_dict['format']}&gid={source_dict['sheet_id']}"
+    
+    elif source_dict["type"] == "cloudstorage":
+        base_url = source_dict["bucket_url"]
+        export_url = f"{base_url}/{source_dict['object_path']}"
+        print(export_url)
+    
+    else:
+        raise Exception("Invalid source type")
+    
     return export_url
 
 
 def make_dataframe_from_source(source_dict: dict) -> pd.DataFrame:
 
-    download_url = make_google_export_url(source_dict)
+    download_url = make_export_url(source_dict)
 
     source_schema = source_dict.schema
 
@@ -26,8 +35,8 @@ def make_dataframe_from_source(source_dict: dict) -> pd.DataFrame:
         source_schema["model"]: "Model",
         source_schema["color"]: "Color",
     }
-
-    df = pd.read_csv(download_url)
+    headers = {"User-Agent": "pandas"}
+    df = pd.read_csv(download_url, storage_options=headers)
 
     df.rename(columns=rename_dict, errors="raise", inplace=True)
 
