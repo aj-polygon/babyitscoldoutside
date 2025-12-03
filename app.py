@@ -26,6 +26,8 @@ melt_plates_df = melt_plates_df[
     )
 ]
 
+name = st.query_params.get("name","")
+
 if melt_plates_df.shape[0] > 0:
 
     event = st.dataframe(
@@ -46,7 +48,7 @@ if melt_plates_df.shape[0] > 0:
         selected = event.selection.rows
         selected_df = melt_plates_df.iloc[selected]
         selected_info = selected_df["Info"].iloc[0]
-        form_url = make_form_url_from_series(st.secrets.target_form, selected_df)
+        form_url = make_form_url_from_series(st.secrets.target_form, selected_df, name)
         st.link_button(label="Submit Incident", url=form_url)
         st.write(selected_info)
         with st.expander("details"):
@@ -58,5 +60,5 @@ if melt_plates_df.shape[0] > 0:
 else:
     st.text("No matching records")
     series = pd.Series(data={"Plate": plate_search_string})
-    form_url = make_form_url_from_plate(st.secrets.target_form, plate_search_string)
+    form_url = make_form_url_from_plate(st.secrets.target_form, plate_search_string, name)
     st.link_button(label="Submit New Plate", url=form_url)
