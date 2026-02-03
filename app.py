@@ -13,7 +13,7 @@ with desc_search:
     vehicle_search_string = st.text_input("Vehicle", help="Search Vehicle Description").upper()
     
 with activity_search:
-    activity_search_string = st.text_input("Activity", help="Search Activity Description").upper()
+    activity_search_string = st.text_input("Info", help="Search Activity Description").upper()
 
 st.caption("Use the above fields to search.")
 
