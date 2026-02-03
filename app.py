@@ -4,13 +4,16 @@ import streamlit as st
 from sources.utils import compile_dataframe
 from targets.utils import make_form_url_from_series, make_form_url_from_plate
 
-plate_search, desc_search = st.columns(2)
+plate_search, desc_search, activity_search =  st.columns(3)
 
 with plate_search:
     plate_search_string = st.text_input("Plate", help="Enter _complete_ plate for 'New Plate' submission button").upper()
 
 with desc_search:
     vehicle_search_string = st.text_input("Vehicle", help="Search Vehicle Description").upper()
+    
+with activity_search:
+    activity_search_string = st.text_input("Activity", help="Search Activity Description").upper()
 
 st.caption("Use the above fields to search.")
 
@@ -23,6 +26,9 @@ melt_plates_df = melt_plates_df[
         & melt_plates_df["Vehicle"]
         .str.upper()
         .str.contains(vehicle_search_string, na=False)
+        & melt_plates_df["Activity"]
+        .str.upper()
+        .str.contains(activity_search_string, na=False)
     )
 ]
 
