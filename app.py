@@ -13,7 +13,7 @@ with desc_search:
     vehicle_search_string = st.text_input("Vehicle", help="Search Vehicle Description").upper()
     
 with activity_search:
-    activity_search_string = st.text_input("Info", help="Search Activity Description").upper()
+    activity_search_string = st.text_input("Info", help="Search the Info field (Identification, Location, and Activity)").upper()
 
 st.caption("Use the above fields to search.")
 
@@ -26,7 +26,7 @@ melt_plates_df = melt_plates_df[
         & melt_plates_df["Vehicle"]
         .str.upper()
         .str.contains(vehicle_search_string, na=False)
-        & melt_plates_df["Activity"]
+        & melt_plates_df["Info"]
         .str.upper()
         .str.contains(activity_search_string, na=False)
     )
