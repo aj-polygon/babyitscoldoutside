@@ -24,7 +24,7 @@ def make_form_url_from_series(target_dict: dict, series: pd.Series, name: str) -
     else:
         activity_text = "ERROR: no activity match"
     
-    query_params[target_fields["activity"]] = activity_text
+    query_params[362932275] = activity_text
     
     query_string = urlencode(query_params)
 
