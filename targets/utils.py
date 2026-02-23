@@ -18,7 +18,7 @@ def make_form_url_from_series(target_dict: dict, series: pd.Series, name: str) -
         target_fields["model"]: series["Model"].item(),
     }
 
-    match = re.search(r'\*\*Activity\*\*:\s*(.*)', info_string)
+    match = re.search(r'\*\*Activity\*\*:\s*(.*)', series["Info"].item())
     if match:
         activity_text = match.group(1).strip()
     else:
