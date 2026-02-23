@@ -18,7 +18,7 @@ def make_form_url_from_series(target_dict: dict, series: pd.Series, name: str) -
         target_fields["model"]: series["Model"].item(),
     }
 
-    match = re.search(r'\*\*Activity\*\*:\s*(.*)', series["Info"].item())
+    match = re.search(r'\*\*Activity\*\*:\s*(.*)', series["Info"], re.DOTALL)
     if match:
         activity_text = match.group(1).strip()   
         query_params["entry.362932275"] = activity_text
