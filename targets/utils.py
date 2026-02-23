@@ -20,11 +20,8 @@ def make_form_url_from_series(target_dict: dict, series: pd.Series, name: str) -
 
     match = re.search(r'\*\*Activity\*\*:\s*(.*)', series["Info"].item())
     if match:
-        activity_text = match.group(1).strip()
-    else:
-        activity_text = "ERROR: no activity match"
-    
-    query_params["entry.362932275"] = activity_text
+        activity_text = match.group(1).strip()   
+        query_params["entry.362932275"] = activity_text
     
     query_string = urlencode(query_params)
 
