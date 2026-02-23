@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 from urllib.parse import urlencode
 
 base_url = "https://docs.google.com/forms/d/e/"
@@ -17,6 +18,14 @@ def make_form_url_from_series(target_dict: dict, series: pd.Series, name: str) -
         target_fields["model"]: series["Model"].item(),
     }
 
+    match = re.search(r'\*\*Activity\*\*:\s*(.*)', info_string)
+    if match:
+        activity_text = match.group(1).strip()
+    else:
+        activity_text = "ERROR: no activity match"
+    
+    query_params[target_fields["activity"]] = activity_text
+    
     query_string = urlencode(query_params)
 
     url = f"{base_url}{form_id}/viewform?{query_string}"
