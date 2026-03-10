@@ -2,7 +2,7 @@ name: Empty Commit
 
 on:
   schedule:
-    - cron: '0 */10 * * *'  # Runs every 10 hours
+    - cron: '30 23,7,15 * * *'  # Runs 11:30 PM, 7:30 AM, and 3:30 PM (15:30) UTC
 
 jobs:
   empty-commit:
