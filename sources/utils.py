@@ -42,12 +42,12 @@ def make_dataframe_from_source(source_dict: dict) -> pd.DataFrame:
 
     df["Plate"] = df["Plate"].str.upper().str.strip()
 
-    df["Make"] = df["Make"].str.capitalize()
-    df["Model"] = df["Model"].str.capitalize()
-    df["Color"] = df["Color"].str.lower()
+    tempMake = df["Make"].str.capitalize()
+    tempModel = df["Model"].str.capitalize()
+    tempColor = df["Color"].str.lower()
 
     df["Vehicle"] = (
-        df[["Color", "Make", "Model"]].fillna("").apply(lambda x: " ".join(x), axis=1)
+        df[[tempColor, tempModel, tempMake]].fillna("").apply(lambda x: " ".join(x), axis=1)
     )
 
     # TODO standardize states
