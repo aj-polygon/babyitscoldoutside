@@ -47,7 +47,9 @@ def make_dataframe_from_source(source_dict: dict) -> pd.DataFrame:
     tempColor = df["Color"].str.lower()
 
     df["Vehicle"] = (
-        df[[tempColor, tempModel, tempMake]].fillna("").apply(lambda x: " ".join(x), axis=1)
+        pd.concat([tempColor, tempModel, tempMake], axis=1)
+      .fillna("")
+      .apply(lambda x: " ".join(x), axis=1)
     )
 
     # TODO standardize states
