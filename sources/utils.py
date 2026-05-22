@@ -47,7 +47,7 @@ def make_dataframe_from_source(source_dict: dict) -> pd.DataFrame:
     tempColor = df["Color"].str.lower()
 
     df["Vehicle"] = (
-        pd.concat([tempColor, tempModel, tempMake], axis=1)
+        pd.concat([tempColor, tempMake, tempModel], axis=1)
       .fillna("")
       .apply(lambda x: " ".join(x), axis=1)
     )
