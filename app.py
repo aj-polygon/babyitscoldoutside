@@ -38,11 +38,12 @@ if melt_plates_df.shape[0] > 0:
     
     event = st.dataframe(
         melt_plates_df,
-        column_order=("Timestamp", "State_Plate", "Vehicle"),
+        column_order=("Timestamp", "State_Plate", "Vehicle", "Location"),
         column_config={
             "Timestamp": "Last Seen",
             "State_Plate": "Plate",
             "Vehicle": "Vehicle Description",
+            "Location": "Location",
         },
         on_select="rerun",
         selection_mode="single-row",
