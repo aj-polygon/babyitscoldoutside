@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 from pprint import pprint
 
 
@@ -71,6 +72,13 @@ def make_dataframe_from_source(source_dict: dict) -> pd.DataFrame:
         axis=1,
     )
 
+
+    df["Location"] = df["Info"].apply(
+        lambda info: re.search(r'\*\*Location\*\*:\s*(.*)', info, re.DOTALL).group(1).strip()
+        if re.search(r'\*\*Location\*\*:\s*(.*)', info, re.DOTALL)
+        else ""
+    )
+
     df.set_index("Incident_id", inplace=True)
 
     final_columns = [
@@ -84,6 +92,7 @@ def make_dataframe_from_source(source_dict: dict) -> pd.DataFrame:
         "Model",
         "Color",
         "Info",
+        "Location"
     ]
 
     df = df[final_columns]
